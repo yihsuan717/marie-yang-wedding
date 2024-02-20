@@ -114,7 +114,7 @@ const handleAfterLoad = (_, destination, direction, trigger) => {
 const options = {
   // licenseKey: 'KEY',
   afterLoad: handleAfterLoad,
-  // scrollOverflow: true,
+  scrollOverflow: false,
   scrollBar: false,
   // menu: '#menu',
   // navigation: true,
@@ -165,7 +165,7 @@ onMounted(() => {
 
 .background {
   width: 100%;
-  height: 100vh;
+  height: 100%;
 
   &.first {
     background: url('./assets/images/bg_1.png') top/cover no-repeat;
@@ -542,7 +542,7 @@ onMounted(() => {
 
       .bottom-flower-group {
         @extend %zoom-in-visible;
-        bottom: 0;
+        bottom: -8px;
         transition-delay: .3s;
         transition-duration: 1.8s;
       }
