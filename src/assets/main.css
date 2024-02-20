@@ -2,6 +2,15 @@
 
 #app {
   height: 100%;
+  margin: auto;
+  width: 64.084vh;
+  max-width: 100%;
+}
+
+@media screen and (max-width: 767px) {
+  #app {
+    width: 100%;
+  }
 }
 
 /*

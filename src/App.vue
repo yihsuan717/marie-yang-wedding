@@ -100,27 +100,26 @@
         </div>
       </div>
     </full-page>
+    <img v-if="!isLast" src="./assets/images/arrow.svg" alt="" class="arrow">
   </div>
 </template>
 
 <script setup>
 import ScrollMagic from 'scrollmagic'
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 
-const handleAfterLoad = (_, destination, direction, trigger) => {
-  console.log('After load', destination, direction, trigger)
+const isLast = ref(false)
+
+const handleAfterLoad = (origin, destination, direction, trigger) => {
+  isLast.value = destination.isLast
 }
 
 const options = {
   // licenseKey: 'KEY',
-  afterLoad: handleAfterLoad,
+  onLeave: handleAfterLoad,
   scrollOverflow: false,
   scrollBar: false,
-  // menu: '#menu',
-  // navigation: true,
-  // anchors: ['page1', 'page2', 'page3'],
-  // sectionsColor: ['#41b883', '#ff5f45', '#0798ec', '#fec401', '#1bcee6', '#ee1a59', '#2c3e4f', '#ba5be9', '#b4b8ab']
-  // dropEffect: true,
+  // anchors: ['home', 'info', 'highlights', 'thanku'],
 }
 
 onMounted(() => {
@@ -143,6 +142,24 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
+@keyframes up {
+  0% {
+    -webkit-transform: translateY(0px);
+    transform: translateY(0px);
+    opacity: 1
+  }
+
+  50% {
+    -webkit-transform: translateY(-10px);
+    transform: translateY(-10px);
+    opacity: 0.5
+  }
+
+  100% {
+    opacity: 0
+  }
+}
+
 @mixin narrow-mobile {
 
   /* 適配窄螢幕裝置 */
@@ -161,6 +178,24 @@ onMounted(() => {
   opacity: 1;
   transform: scale3d(1, 1, 1);
   transition: all 1s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 8%;
+  opacity: 0.6;
+  position: absolute;
+  bottom: 3px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  transition: all 2s ease;
+  -webkit-animation: up 1s linear infinite;
+  -moz-animation: up 1s linear infinite;
+  -o-animation: up 1s linear infinite;
+  animation: up 1s linear infinite;
 }
 
 .background {
@@ -374,10 +409,10 @@ onMounted(() => {
             object-fit: contain;
             z-index: 1;
 
-            @include narrow-mobile {
-              width: 180px;
-              height: 180px;
-            }
+            // @include narrow-mobile {
+            //   width: 180px;
+            //   height: 180px;
+            // }
           }
 
           >img:nth-child(2) {
@@ -390,11 +425,11 @@ onMounted(() => {
             z-index: 2;
             @extend %zoom-in;
 
-            @include narrow-mobile {
-              bottom: 80px;
-              left: 6px;
-              width: 181px;
-            }
+            // @include narrow-mobile {
+            //   bottom: 80px;
+            //   left: 6px;
+            //   width: 181px;
+            // }
           }
         }
       }
@@ -417,12 +452,12 @@ onMounted(() => {
             height: 259px;
             object-fit: contain;
 
-            @include narrow-mobile {
-              top: 72px;
-              left: 63px;
-              width: 256px;
-              height: 256px;
-            }
+            // @include narrow-mobile {
+            //   top: 72px;
+            //   left: 63px;
+            //   width: 256px;
+            //   height: 256px;
+            // }
           }
 
           >img:nth-child(2) {
@@ -434,11 +469,11 @@ onMounted(() => {
             object-fit: contain;
             @extend %zoom-in;
 
-            @include narrow-mobile {
-              bottom: 28px;
-              left: 88px;
-              width: 180px;
-            }
+            // @include narrow-mobile {
+            //   bottom: 28px;
+            //   left: 88px;
+            //   width: 180px;
+            // }
           }
         }
       }
@@ -479,12 +514,13 @@ onMounted(() => {
 
     .frame-pic2 {
       position: relative;
-      padding: 12px;
-      overflow: hidden;
+      width: 46vh;
+      max-width: calc(100% - 24px);
+      margin: auto;
 
       >img {
         width: 100%;
-        height: auto;
+        height: 100%;
         object-fit: contain;
       }
 
@@ -534,7 +570,7 @@ onMounted(() => {
         .border-l {
           @extend %zoom-in-visible;
           top: 28%;
-          left: -10%;
+          left: -45px;
           transition-delay: .2s;
           transition-duration: 1.7s;
         }
