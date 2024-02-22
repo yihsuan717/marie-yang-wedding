@@ -64,6 +64,10 @@
               </p>
             </div> -->
           </div>
+          <img class="talk-l" src="./assets/images/bg_2_talk_l.png" alt="" />
+          <img class="talk-r" src="./assets/images/bg_2_talk_r.png" alt="" />
+          <img class="corner-l" src="./assets/images/bg_2_flower_l.png" alt="" />
+          <img class="corner-r" src="./assets/images/bg_2_flower_r.png" alt="" />
         </div>
       </div>
       <!-- 第三頁 -->
@@ -207,7 +211,7 @@ onMounted(() => {
     text-align: center;
 
     #weddingInvitation {
-      margin-top: 165px;
+      margin-top: 155px;
       width: 83%;
       height: auto;
       object-fit: contain;
@@ -290,9 +294,89 @@ onMounted(() => {
       @extend %zoom-in
     }
 
+    .talk {
+      &-l {
+        position: absolute;
+        top: 220px;
+        left: 30px;
+        width: 106px;
+        height: auto;
+        object-fit: contain;
+        @extend %zoom-in
+      }
+
+      &-r {
+        position: absolute;
+        top: 330px;
+        right: 40px;
+        width: 102px;
+        height: auto;
+        object-fit: contain;
+        @extend %zoom-in
+      }
+    }
+
+    .corner {
+      &-l {
+        position: absolute;
+        bottom: -10%;
+        left: -20%;
+        width: 142px;
+        height: auto;
+        object-fit: contain;
+        @extend %zoom-in;
+      }
+
+      &-r {
+        position: absolute;
+        bottom: -10%;
+        right: -20%;
+        width: 142px;
+        height: auto;
+        object-fit: contain;
+        @extend %zoom-in;
+      }
+    }
+
     &.loaded {
       #xi {
-        @extend %zoom-in-visible
+        @extend %zoom-in-visible;
+      }
+
+      .talk {
+        &-l {
+          @extend %zoom-in-visible;
+          transition-delay: 1s;
+          transition-duration: 1.5s;
+          top: 250px;
+          left: 90px;
+        }
+
+        &-r {
+          @extend %zoom-in-visible;
+          transition-delay: 1.4s;
+          transition-duration: 1.8s;
+          top: 280px;
+          right: 100px;
+        }
+      }
+
+      .corner {
+        &-l {
+          @extend %zoom-in-visible;
+          transition-delay: .4s;
+          transition-duration: 1.8s;
+          bottom: 0;
+          left: 0;
+        }
+
+        &-r {
+          @extend %zoom-in-visible;
+          transition-delay: .5s;
+          transition-duration: 1.8s;
+          bottom: 0;
+          right: 0;
+        }
       }
     }
 
