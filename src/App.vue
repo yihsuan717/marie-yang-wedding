@@ -1,9 +1,12 @@
 <template>
-  <div>
+  <transition name="fade-out">
+    <Loading v-if="state.loading" />
+  </transition>
+  <div v-if="!state.loading">
     <full-page ref="fullpage" :options="options" id="fullpage">
       <!-- 第一頁 -->
       <div class="section">
-        <div class="background first">
+        <div class="background first" :style="{ background: `url(${state.bgImgUrl}) top/cover no-repeat` }">
           <img id="weddingInvitation" class="zoom-in" src="./assets/images/weddingInvitation.png"
             alt="weddingInvitation" />
           <img id="bird" src="./assets/images/bird.png" alt="bird" />
@@ -110,9 +113,14 @@
 
 <script setup>
 import ScrollMagic from 'scrollmagic'
-import { onMounted, ref } from 'vue'
+import { reactive, onMounted, ref } from 'vue'
+import Loading from './Loading.vue'
 
 const isLast = ref(false)
+const state = reactive({
+  loading: true,
+  bgImgUrl: null
+})
 
 const handleAfterLoad = (origin, destination, direction, trigger) => {
   isLast.value = destination.isLast
@@ -127,6 +135,17 @@ const options = {
 }
 
 onMounted(() => {
+  // preload images
+  let bgImg = new Image()
+  bgImg.onload = () => {
+    console.log('bg图片已加载')
+    state.bgImgUrl = bgImg.src
+    state.loading = false
+  }
+  const imgUrl = new URL('./assets/images/bg_1.png', import.meta.url).href
+  console.log('imgUrl', imgUrl)
+  bgImg.src = new URL('./assets/images/bg_1.png', import.meta.url).href
+
   const controller = new ScrollMagic.Controller()
   // build scenes
   new ScrollMagic.Scene({ triggerElement: ".first" })
@@ -146,6 +165,17 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
+
+.fade-out-enter-active,
+.fade-out-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-out-enter,
+.fade-out-leave-to {
+  opacity: 0;
+}
+
 @keyframes up {
   0% {
     -webkit-transform: translateY(0px);
@@ -207,7 +237,7 @@ onMounted(() => {
   height: 100%;
 
   &.first {
-    background: url('./assets/images/bg_1.png') top/cover no-repeat;
+    // background: url('./assets/images/bg_1.png') top/cover no-repeat;
     text-align: center;
 
     #weddingInvitation {
