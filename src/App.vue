@@ -2,7 +2,7 @@
   <transition name="fade-out">
     <Loading v-if="state.loading" />
   </transition>
-  <div v-if="!state.loading">
+  <div>
     <full-page ref="fullpage" :options="options" id="fullpage">
       <!-- 第一頁 -->
       <div class="section">
@@ -140,7 +140,9 @@ onMounted(() => {
   bgImg.onload = () => {
     console.log('bg图片已加载')
     state.bgImgUrl = bgImg.src
-    state.loading = false
+    setTimeout(() => {
+      state.loading = false
+    }, 1000)
   }
   const imgUrl = new URL('./assets/images/bg_1.png', import.meta.url).href
   console.log('imgUrl', imgUrl)
@@ -168,7 +170,7 @@ onMounted(() => {
 
 .fade-out-enter-active,
 .fade-out-leave-active {
-  transition: opacity 0.5s;
+  transition: opacity 0.6s;
 }
 
 .fade-out-enter,
@@ -245,7 +247,7 @@ onMounted(() => {
       width: 83%;
       height: auto;
       object-fit: contain;
-      @extend %zoom-in
+      @extend %zoom-in;
     }
 
     #bird {
@@ -281,7 +283,8 @@ onMounted(() => {
 
     &.loaded {
       #weddingInvitation {
-        @extend %zoom-in-visible
+        @extend %zoom-in-visible;
+        transition-delay: 1.6s;
       }
 
       #bird {
@@ -289,7 +292,7 @@ onMounted(() => {
         top: 226px;
         left: 10%;
         transition: all 1s cubic-bezier(0.215, 0.61, 0.355, 1);
-        transition-delay: .6s;
+        transition-delay: 2.0s;
       }
 
       #butterfly1 {
@@ -298,7 +301,7 @@ onMounted(() => {
         left: 8%;
         transform: scale3d(1, 1, 1);
         transition: all 1s cubic-bezier(0.215, 0.61, 0.355, 1);
-        transition-delay: 1.2s;
+        transition-delay: 2.7s;
       }
 
       #butterfly2 {
@@ -307,7 +310,7 @@ onMounted(() => {
         right: 14%;
         transform: scale3d(1, 1, 1);
         transition: all 1s cubic-bezier(0.215, 0.61, 0.355, 1);
-        transition-delay: 1.3s;
+        transition-delay: 2.9s;
       }
     }
   }
